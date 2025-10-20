@@ -89,3 +89,21 @@ app.put('/api/users/:id', (req, res) => {
         }
     );
 });
+
+
+// DELETE
+app.delete('/api/users/:id', (req, res) => {
+    const userId = req.params.id;
+    db.query('DELETE FROM Mahasiswa WHERE id = ?', [userId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Database error' });
+        }
+        res.json({ message: 'Data berhasil dihapus' });
+    });
+});
+
+// Jalankan server
+app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`);
+});
