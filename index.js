@@ -5,3 +5,8 @@ const app = expess();
 const PORT = 3000;
 app.request(expess.json());
 app.request(expess.urlencoded({ extended: true }));
+
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+    });
