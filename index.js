@@ -48,3 +48,25 @@ app.get('/api/users', (req, res) => {
         res.json(results);
     });
 });
+
+
+// CREATE (POST)
+app.post('/api/users', (req, res) => {
+    const { Nama, Nim, Kelas } = req.body;
+
+    if (!Nama || !Nim || !Kelas) {
+        return res.status(400).json({ message: 'Nama, NIM, dan kelas harus diisi' });
+    }
+
+    db.query(
+        'INSERT INTO Mahasiswa (Nama, Nim, Kelas) VALUES (?, ?, ?)',
+        [Nama, Nim, Kelas],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: 'Database error' });
+            }
+            res.status(201).json({ message: 'Data berhasil ditambahkan' });
+        }
+    );
+});
