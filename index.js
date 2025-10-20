@@ -30,5 +30,21 @@ db.connect((err) => {
     if (err) {
         console.error('Error connecting to database:', err);
     }
-    console.log('Connected succesfully.');
+    console.log('Connected successfully to MySQL.');
+});
+
+// Route dasar
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+// READ (GET)
+app.get('/api/users', (req, res) => {
+    db.query('SELECT * FROM Mahasiswa', (err, results) => {
+        if (err) {
+            console.error('Error fetching users:', err);
+            return res.status(500).send('Error fetching users');
+        }
+        res.json(results);
     });
+});
